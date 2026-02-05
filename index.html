@@ -7,10 +7,19 @@
 </head>
 <body>
      <h1>Git Command Practice</h1>
-     <h1>"git restore" command</h1>
+     <h2>git restore command</h2>
      <p>The git restore command is used to restore working tree files. It can be used to discard changes in the working directory or to restore files from a specific commit.</p>
+    <p>Command: git restore &lt;file-path&gt;</p>
 
     <h2>git revert command</h2>
     <p>The git revert command is used to create a new commit that undoes the changes made in a previous commit. It is a safe way to undo changes because it does not modify the existing commit history.</p>
+    <p>Command: git revert &lt;commit-hash&gt;</p>
+
+    <h2>git reset command</h2>
+    <p>The git reset command is used to reset the current HEAD to a specified state. It can be used to unstage changes, discard commits, or move the HEAD pointer to a different commit.</p>
+    <p>Command: git reset [--soft | --mixed | --hard] &lt;commit-hash&gt;</p> 
+    --soft: Moves HEAD to the specified commit without changing the index or working directory.<br>
+    --mixed: Moves HEAD to the specified commit and resets the index, but does not change the working directory.<br>
+    --hard: Moves HEAD to the specified commit and resets both the index and working directory to match the specified commit.<br>
 </body>
 </html>
