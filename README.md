@@ -3,7 +3,7 @@
 > **Beginner-friendly** Git & GitHub reference — every command explained in simple words with real examples.
 
 🌐 **Live Demo:** [View Cheatsheet](https://muhammadkazim5.github.io/git-commands-cheatsheet/)
-*(Replace `Muhammadkazim5` with your GitHub Muhammadkazim5)*
+*(Replace `username` with your GitHub username)*
 
 ---
 
@@ -60,7 +60,7 @@ Perfect for:
 
 ```bash
 # Step 1: Clone this repo
-git clone https://github.com/username/git-commands-cheatsheet.git
+git clone https://github.com/Muhammadkazim5/git-commands-cheatsheet.git
 
 # Step 2: Open the file
 cd git-commands-cheatsheet
@@ -75,7 +75,7 @@ Just open `index.html` in any browser — no setup needed!
 
 This project is live at:
 ```
-https://username.github.io/git-commands-cheatsheet/
+https://muhammadkazim5.github.io/git-commands-cheatsheet/
 ```
 
 To enable GitHub Pages on your own fork:
@@ -92,6 +92,8 @@ To enable GitHub Pages on your own fork:
 ```
 git-commands-cheatsheet/
 ├── index.html      ← Main cheatsheet page
+├── app.js          ← JavaScript file
+├── LICENSE         ← MIT License
 └── README.md       ← This file
 ```
 
@@ -119,7 +121,7 @@ All contributions are welcome! 🙌
 
 ## 📄 License
 
-This project is open source and free to use.
+This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
