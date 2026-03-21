@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://muhammadkazim5.github.io/git-commands-cheatsheet/sitemap.xml
