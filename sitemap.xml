@@ -7,20 +7,3 @@
   </url>
 </urlset>
 ```
-
-### Step 2: Search Console mein submit karo
-1. [search.google.com/search-console](https://search.google.com/search-console) kholo
-2. Left menu mein **"Sitemaps"** par click karo
-3. Ye URL daalo:
-```
-sitemap.xml
-```
-4. **"Submit"** dabao ✅
-
----
-
-### Step 3: URL Indexing Request karo
-1. Left menu mein **"URL Inspection"** par click karo
-2. Ye URL daalo:
-```
-https://muhammadkazim5.github.io/git-commands-cheatsheet/
