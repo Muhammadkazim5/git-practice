@@ -2,6 +2,11 @@
 
 > **Beginner-friendly** Git & GitHub reference — every command explained in simple words with real examples.
 
+![Visitors](https://visitor-badge.laobi.icu/badge?page_id=Muhammadkazim5.git-commands-cheatsheet)
+![GitHub stars](https://img.shields.io/github/stars/Muhammadkazim5/git-commands-cheatsheet?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Muhammadkazim5/git-commands-cheatsheet?style=social)
+![MIT License](https://img.shields.io/github/license/Muhammadkazim5/git-commands-cheatsheet)
+
 🌐 **Live Demo:** [View Cheatsheet](https://muhammadkazim5.github.io/git-commands-cheatsheet/)
 
 ---
@@ -95,6 +100,20 @@ git-commands-cheatsheet/
 ├── LICENSE         ← MIT License
 └── README.md       ← This file
 ```
+
+---
+
+## 📊 Repo Stats & Visitors
+
+| What | Where to check |
+|---|---|
+| 👁️ Views & Unique visitors | `Insights` → `Traffic` |
+| 📥 Clones | `Insights` → `Traffic` → `Git Clones` |
+| 🔗 Where visitors came from | `Insights` → `Traffic` → `Referring sites` |
+| ⭐ Stars history | `Insights` → `Stars` |
+| 🍴 Forks | `Insights` → `Forks` |
+
+> 💡 Go to your repo → click **Insights** tab to see all traffic data!
 
 ---
 
