@@ -3,25 +3,1029 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Git & GitHub Complete Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface2: #1c2128;
+            --border: #30363d;
+            --green: #3fb950;
+            --green-dim: #1a3a22;
+            --blue: #58a6ff;
+            --blue-dim: #0d2045;
+            --orange: #f0883e;
+            --orange-dim: #3a1f00;
+            --purple: #bc8cff;
+            --purple-dim: #2a1a4a;
+            --red: #f85149;
+            --red-dim: #3a0d0d;
+            --yellow: #e3b341;
+            --yellow-dim: #2d2000;
+            --text: #c9d1d9;
+            --text-dim: #8b949e;
+            --text-bright: #f0f6fc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Syne', sans-serif;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, #0d1117 0%, #1a2332 50%, #0d1117 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 60px 40px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(63,185,80,0.12) 0%, transparent 70%);
+        }
+        header .badge {
+            display: inline-block;
+            background: var(--green-dim);
+            border: 1px solid var(--green);
+            color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--text-bright);
+            letter-spacing: -1px;
+            position: relative;
+        }
+        header h1 span { color: var(--green); }
+        header p {
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 14px auto 0;
+            font-size: 1.05rem;
+        }
+
+        /* LAYOUT */
+        .container { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+
+        /* SECTION NAV */
+        .toc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-bottom: 48px;
+        }
+        .toc h3 {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 14px;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+        }
+        .toc a {
+            color: var(--blue);
+            text-decoration: none;
+            font-size: 0.88rem;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .toc a:hover { background: var(--blue-dim); }
+        .toc a .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--blue);
+            flex-shrink: 0;
+        }
+
+        /* SECTION */
+        .section {
+            margin-bottom: 56px;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-bright);
+        }
+        .section-header p {
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            margin-top: 2px;
+        }
+
+        /* COMMAND CARD */
+        .cmd-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .cmd-card:hover { border-color: #484f58; }
+
+        .cmd-card-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+        .cmd-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+            margin-top: 2px;
+        }
+        .cmd-info h4 {
+            color: var(--text-bright);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .cmd-info p {
+            color: var(--text-dim);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .cmd-body { padding: 16px 20px; }
+
+        .code-block {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .code-block-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 14px;
+            background: var(--surface2);
+            border-bottom: 1px solid var(--border);
+        }
+        .code-block-header span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .copy-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { border-color: var(--green); color: var(--green); }
+        pre {
+            padding: 14px 16px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        .c-cmd { color: var(--green); }
+        .c-flag { color: var(--blue); }
+        .c-arg { color: var(--orange); }
+        .c-comment { color: var(--text-dim); }
+        .c-output { color: var(--purple); }
+        .c-error { color: var(--red); }
+        .c-path { color: var(--yellow); }
+
+        .example-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 8px;
+            margin-top: 14px;
+        }
+
+        /* FLAGS TABLE */
+        .flags-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+            margin-top: 12px;
+        }
+        .flags-table th {
+            text-align: left;
+            padding: 8px 12px;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+        }
+        .flags-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #21262d;
+            vertical-align: top;
+        }
+        .flags-table tr:last-child td { border-bottom: none; }
+        .flags-table .flag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--blue);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        /* TIP BOX */
+        .tip {
+            display: flex;
+            gap: 12px;
+            background: var(--green-dim);
+            border: 1px solid rgba(63,185,80,0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 12px;
+            font-size: 0.875rem;
+        }
+        .tip.warn {
+            background: var(--orange-dim);
+            border-color: rgba(240,136,62,0.3);
+        }
+        .tip.danger {
+            background: var(--red-dim);
+            border-color: rgba(248,81,73,0.3);
+        }
+        .tip-icon { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+        .tip strong { display: block; color: var(--text-bright); margin-bottom: 3px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* COLOR THEMES */
+        .green .section-icon { background: var(--green-dim); }
+        .blue .section-icon { background: var(--blue-dim); }
+        .orange .section-icon { background: var(--orange-dim); }
+        .purple .section-icon { background: var(--purple-dim); }
+        .red .section-icon { background: var(--red-dim); }
+        .yellow .section-icon { background: var(--yellow-dim); }
+
+        .green .cmd-tag { background: var(--green-dim); color: var(--green); }
+        .blue .cmd-tag { background: var(--blue-dim); color: var(--blue); }
+        .orange .cmd-tag { background: var(--orange-dim); color: var(--orange); }
+        .purple .cmd-tag { background: var(--purple-dim); color: var(--purple); }
+        .red .cmd-tag { background: var(--red-dim); color: var(--red); }
+        .yellow .cmd-tag { background: var(--yellow-dim); color: var(--yellow); }
+
+        /* DIVIDER */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border), transparent);
+            margin: 48px 0;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 32px;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 40px 20px 30px; }
+            .container { padding: 28px 16px 60px; }
+            .toc-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
 </head>
 <body>
-     <h1>Git Command Practice</h1>
-     <h2>git restore command</h2>
-     <p>The git restore command is used to restore working tree files. It can be used to discard changes in the working directory or to restore files from a specific commit.</p>
-    <p>Command: git restore &lt;file-path&gt;</p>
 
-    <h2>git revert command</h2>
-    <p>The git revert command is used to create a new commit that undoes the changes made in a previous commit. It is a safe way to undo changes because it does not modify the existing commit history.</p>
-    <p>Command: git revert &lt;commit-hash&gt;</p>
+<header>
+    <div class="badge">Complete Reference</div>
+    <h1>Git & <span>GitHub</span> Docs</h1>
+    <p>Every essential command, explained in plain English with real examples you can run right now.</p>
+</header>
 
-    <h2>git reset command</h2>
-    <p>The git reset command is used to reset the current HEAD to a specified state. It can be used to unstage changes, discard commits, or move the HEAD pointer to a different commit.</p>
-    <p>Command: git reset [--soft | --mixed | --hard] &lt;commit-hash&gt;</p> 
-    --soft: Moves HEAD to the specified commit without changing the index or working directory.<br>
-    --mixed: Moves HEAD to the specified commit and resets the index, but does not change the working directory.<br>
-    --hard: Moves HEAD to the specified commit and resets both the index and working directory to match the specified commit.<br>
-    <h2>Branches command</h2>
-     <p>git checkout -b new-branch</p>
+<div class="container">
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="toc">
+        <h3>Contents</h3>
+        <div class="toc-grid">
+            <a href="#setup"><span class="dot"></span>Setup & Config</a>
+            <a href="#init"><span class="dot"></span>Init & Clone</a>
+            <a href="#staging"><span class="dot"></span>Stage & Commit</a>
+            <a href="#branches"><span class="dot"></span>Branches</a>
+            <a href="#remote"><span class="dot"></span>Remote & Push/Pull</a>
+            <a href="#restore"><span class="dot"></span>git restore</a>
+            <a href="#revert"><span class="dot"></span>git revert</a>
+            <a href="#reset"><span class="dot"></span>git reset</a>
+            <a href="#log"><span class="dot"></span>Log & History</a>
+            <a href="#stash"><span class="dot"></span>Stash</a>
+            <a href="#merge"><span class="dot"></span>Merge & Rebase</a>
+            <a href="#tags"><span class="dot"></span>Tags</a>
+        </div>
+    </div>
+
+    <!-- ======================== SETUP ======================== -->
+    <div class="section green" id="setup">
+        <div class="section-header">
+            <div class="section-icon">⚙️</div>
+            <div>
+                <h2>Setup & Configuration</h2>
+                <p>First things to run on a new machine</p>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git config</div>
+                <div class="cmd-info">
+                    <h4>Set your identity</h4>
+                    <p>Tell Git who you are. This info is attached to every commit you make.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="example-label">Commands</div>
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-cmd">git config</span> <span class="c-flag">--global</span> <span class="c-arg">user.name</span> <span class="c-path">"Your Name"</span>
+<span class="c-cmd">git config</span> <span class="c-flag">--global</span> <span class="c-arg">user.email</span> <span class="c-path">"you@example.com"</span>
+
+<span class="c-comment"># Check what you set</span>
+<span class="c-cmd">git config</span> <span class="c-flag">--list</span></pre>
+                </div>
+                <div class="tip"><span class="tip-icon">💡</span><div><strong>Tip</strong>Use <code>--global</code> to apply to all your projects. Skip it to apply to the current project only.</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== INIT & CLONE ======================== -->
+    <div class="section blue" id="init">
+        <div class="section-header">
+            <div class="section-icon">🚀</div>
+            <div>
+                <h2>Init & Clone</h2>
+                <p>Start a new repo or download an existing one</p>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git init</div>
+                <div class="cmd-info">
+                    <h4>Create a new repository</h4>
+                    <p>Turns any folder into a Git repository. Creates a hidden <code>.git</code> folder inside.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="example-label">Example</div>
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-cmd">mkdir</span> <span class="c-path">my-project</span>
+<span class="c-cmd">cd</span> <span class="c-path">my-project</span>
+<span class="c-cmd">git init</span>
+
+<span class="c-output"># Output: Initialized empty Git repository in /my-project/.git/</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git clone</div>
+                <div class="cmd-info">
+                    <h4>Download a repository from GitHub</h4>
+                    <p>Copies the entire repo — all files, history, and branches — to your machine.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="example-label">Example</div>
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># Clone into a folder named after the repo</span>
+<span class="c-cmd">git clone</span> <span class="c-path">https://github.com/user/repo.git</span>
+
+<span class="c-comment"># Clone into a custom folder name</span>
+<span class="c-cmd">git clone</span> <span class="c-path">https://github.com/user/repo.git</span> <span class="c-arg">my-folder</span></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== STAGING & COMMIT ======================== -->
+    <div class="section orange" id="staging">
+        <div class="section-header">
+            <div class="section-icon">📦</div>
+            <div>
+                <h2>Stage & Commit</h2>
+                <p>Save snapshots of your work</p>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git status</div>
+                <div class="cmd-info">
+                    <h4>See what changed</h4>
+                    <p>Shows which files are modified, staged, or untracked. Run this often!</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-cmd">git status</span>
+
+<span class="c-output"># On branch main
+# Changes not staged for commit:
+#   modified:   index.html
+# Untracked files:
+#   style.css</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git add</div>
+                <div class="cmd-info">
+                    <h4>Stage files for commit</h4>
+                    <p>Moves files to the "staging area" — like putting things in a box before sealing it.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># Stage one file</span>
+<span class="c-cmd">git add</span> <span class="c-path">index.html</span>
+
+<span class="c-comment"># Stage all changed files</span>
+<span class="c-cmd">git add</span> <span class="c-flag">.</span>
+
+<span class="c-comment"># Stage specific folder</span>
+<span class="c-cmd">git add</span> <span class="c-path">src/</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git commit</div>
+                <div class="cmd-info">
+                    <h4>Save the snapshot</h4>
+                    <p>Creates a permanent checkpoint with everything that was staged. Always write a clear message.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># Commit with a message</span>
+<span class="c-cmd">git commit</span> <span class="c-flag">-m</span> <span class="c-path">"Add navigation bar to homepage"</span>
+
+<span class="c-comment"># Stage + commit all tracked files in one step</span>
+<span class="c-cmd">git commit</span> <span class="c-flag">-am</span> <span class="c-path">"Fix typo in footer"</span></pre>
+                </div>
+                <div class="tip"><span class="tip-icon">✅</span><div><strong>Good commit messages</strong>Use the format: <em>"Add feature"</em> / <em>"Fix bug"</em> / <em>"Update docs"</em> — start with a verb, keep it under 50 chars.</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== BRANCHES ======================== -->
+    <div class="section purple" id="branches">
+        <div class="section-header">
+            <div class="section-icon">🌿</div>
+            <div>
+                <h2>Branches</h2>
+                <p>Work on features without touching the main code</p>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git branch</div>
+                <div class="cmd-info">
+                    <h4>List, create, or delete branches</h4>
+                    <p>A branch is like a parallel universe — changes here don't affect other branches until you merge.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># List all local branches (* marks current)</span>
+<span class="c-cmd">git branch</span>
+
+<span class="c-comment"># Create a new branch</span>
+<span class="c-cmd">git branch</span> <span class="c-arg">feature-login</span>
+
+<span class="c-comment"># Delete a branch (after merging)</span>
+<span class="c-cmd">git branch</span> <span class="c-flag">-d</span> <span class="c-arg">feature-login</span>
+
+<span class="c-comment"># Force delete (even if not merged)</span>
+<span class="c-cmd">git branch</span> <span class="c-flag">-D</span> <span class="c-arg">feature-login</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git checkout / git switch</div>
+                <div class="cmd-info">
+                    <h4>Switch between branches</h4>
+                    <p><code>git switch</code> is the newer, cleaner way. Both work the same.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># Switch to an existing branch</span>
+<span class="c-cmd">git switch</span> <span class="c-arg">feature-login</span>
+<span class="c-cmd">git checkout</span> <span class="c-arg">feature-login</span>   <span class="c-comment"># older way</span>
+
+<span class="c-comment"># Create AND switch in one command</span>
+<span class="c-cmd">git switch</span> <span class="c-flag">-c</span> <span class="c-arg">feature-login</span>
+<span class="c-cmd">git checkout</span> <span class="c-flag">-b</span> <span class="c-arg">feature-login</span>  <span class="c-comment"># older way</span></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== REMOTE ======================== -->
+    <div class="section yellow" id="remote">
+        <div class="section-header">
+            <div class="section-icon">☁️</div>
+            <div>
+                <h2>Remote — Push & Pull</h2>
+                <p>Sync your code with GitHub</p>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git remote</div>
+                <div class="cmd-info">
+                    <h4>Connect to GitHub</h4>
+                    <p>"origin" is just the default nickname for your GitHub repo URL.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># Link your local repo to GitHub</span>
+<span class="c-cmd">git remote add</span> <span class="c-arg">origin</span> <span class="c-path">https://github.com/user/repo.git</span>
+
+<span class="c-comment"># See your remotes</span>
+<span class="c-cmd">git remote</span> <span class="c-flag">-v</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git push</div>
+                <div class="cmd-info">
+                    <h4>Upload commits to GitHub</h4>
+                    <p>Sends your local commits up to the remote repository.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># Push main branch</span>
+<span class="c-cmd">git push</span> <span class="c-arg">origin main</span>
+
+<span class="c-comment"># First push of a new branch (sets tracking)</span>
+<span class="c-cmd">git push</span> <span class="c-flag">-u</span> <span class="c-arg">origin feature-login</span>
+
+<span class="c-comment"># After -u is set, just use:</span>
+<span class="c-cmd">git push</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git pull</div>
+                <div class="cmd-info">
+                    <h4>Download & merge changes from GitHub</h4>
+                    <p><code>git pull</code> = <code>git fetch</code> + <code>git merge</code>. Gets teammates' changes.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># Pull changes from origin</span>
+<span class="c-cmd">git pull</span> <span class="c-arg">origin main</span>
+
+<span class="c-comment"># Just fetch (don't merge yet)</span>
+<span class="c-cmd">git fetch</span> <span class="c-arg">origin</span></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ======================== RESTORE ======================== -->
+    <div class="section green" id="restore">
+        <div class="section-header">
+            <div class="section-icon">↩️</div>
+            <div>
+                <h2>git restore</h2>
+                <p>Undo changes to files — safe & non-destructive</p>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git restore</div>
+                <div class="cmd-info">
+                    <h4>Throw away unsaved changes in a file</h4>
+                    <p>Got messy edits you don't want? Restore brings the file back to its last committed state. No commit is created.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="example-label">Syntax</div>
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-cmd">git restore</span> <span class="c-arg">&lt;file-name&gt;</span></pre>
+                </div>
+
+                <div class="example-label">Real Examples</div>
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># You edited index.html and want to undo all changes</span>
+<span class="c-cmd">git restore</span> <span class="c-path">index.html</span>
+
+<span class="c-comment"># Restore all changed files at once</span>
+<span class="c-cmd">git restore</span> <span class="c-flag">.</span>
+
+<span class="c-comment"># Remove a file from staging (unstage it)</span>
+<span class="c-cmd">git restore</span> <span class="c-flag">--staged</span> <span class="c-path">index.html</span>
+
+<span class="c-comment"># Restore a file from a specific commit</span>
+<span class="c-cmd">git restore</span> <span class="c-flag">--source</span> <span class="c-arg">abc1234</span> <span class="c-path">index.html</span></pre>
+                </div>
+
+                <table class="flags-table">
+                    <tr><th>Flag</th><th>What it does</th></tr>
+                    <tr><td class="flag">(no flag)</td><td>Discards changes in working directory</td></tr>
+                    <tr><td class="flag">--staged</td><td>Unstages the file (keeps your edits)</td></tr>
+                    <tr><td class="flag">--source &lt;hash&gt;</td><td>Restores from a specific commit</td></tr>
+                </table>
+
+                <div class="tip warn"><span class="tip-icon">⚠️</span><div><strong>Warning</strong>Running <code>git restore &lt;file&gt;</code> permanently deletes unsaved edits. Make sure you don't need those changes!</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== REVERT ======================== -->
+    <div class="section blue" id="revert">
+        <div class="section-header">
+            <div class="section-icon">🔄</div>
+            <div>
+                <h2>git revert</h2>
+                <p>Undo a past commit safely — history stays intact</p>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git revert</div>
+                <div class="cmd-info">
+                    <h4>Create a new commit that cancels an old one</h4>
+                    <p>The safest way to undo a commit. Instead of deleting history, it adds a new "undo" commit on top. Perfect for shared repos.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="example-label">Syntax</div>
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-cmd">git revert</span> <span class="c-arg">&lt;commit-hash&gt;</span></pre>
+                </div>
+
+                <div class="example-label">Real Example</div>
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># 1. Find the commit you want to undo</span>
+<span class="c-cmd">git log</span> <span class="c-flag">--oneline</span>
+<span class="c-output">abc1234  Add broken feature
+def5678  Fix footer bug     ← you want to undo this</span>
+
+<span class="c-comment"># 2. Revert it</span>
+<span class="c-cmd">git revert</span> <span class="c-arg">def5678</span>
+
+<span class="c-comment"># Git opens editor for commit message (or skip with --no-edit)</span>
+<span class="c-cmd">git revert</span> <span class="c-arg">def5678</span> <span class="c-flag">--no-edit</span>
+
+<span class="c-output"># New commit appears: "Revert 'Fix footer bug'"</span></pre>
+                </div>
+
+                <div class="tip"><span class="tip-icon">✅</span><div><strong>Best for teams</strong>Use <code>git revert</code> when you've already pushed commits to GitHub. It never rewrites history, so it won't break your teammates' work.</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== RESET ======================== -->
+    <div class="section red" id="reset">
+        <div class="section-header">
+            <div class="section-icon">⏮️</div>
+            <div>
+                <h2>git reset</h2>
+                <p>Move HEAD back in time — rewrites history</p>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git reset</div>
+                <div class="cmd-info">
+                    <h4>Move your branch pointer to a different commit</h4>
+                    <p>Unlike revert, this actually removes commits from history. Use with caution — especially on shared branches.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="example-label">Syntax</div>
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-cmd">git reset</span> [<span class="c-flag">--soft</span> | <span class="c-flag">--mixed</span> | <span class="c-flag">--hard</span>] <span class="c-arg">&lt;commit-hash&gt;</span></pre>
+                </div>
+
+                <table class="flags-table" style="margin-bottom:16px">
+                    <tr><th>Mode</th><th>Commits removed?</th><th>Staged changes?</th><th>File edits?</th></tr>
+                    <tr><td class="flag">--soft</td><td>✅ Yes</td><td>Kept (staged)</td><td>Kept</td></tr>
+                    <tr><td class="flag">--mixed</td><td>✅ Yes</td><td>Unstaged</td><td>Kept</td></tr>
+                    <tr><td class="flag">--hard</td><td>✅ Yes</td><td>Deleted</td><td>Deleted</td></tr>
+                </table>
+
+                <div class="example-label">Real Examples</div>
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># --soft: Remove commit, keep changes staged (ready to re-commit)</span>
+<span class="c-cmd">git reset</span> <span class="c-flag">--soft</span> <span class="c-arg">HEAD~1</span>
+<span class="c-comment"># Use case: "I committed too early, let me fix the message"</span>
+
+<span class="c-comment"># --mixed (default): Remove commit, keep changes but unstaged</span>
+<span class="c-cmd">git reset</span> <span class="c-arg">HEAD~1</span>
+<span class="c-comment"># Use case: "I committed wrong files, let me re-stage carefully"</span>
+
+<span class="c-comment"># --hard: Remove commit AND all changes permanently!</span>
+<span class="c-cmd">git reset</span> <span class="c-flag">--hard</span> <span class="c-arg">HEAD~1</span>
+<span class="c-comment"># Use case: "Throw away last commit completely"</span>
+
+<span class="c-comment"># HEAD~1 = one commit before current, HEAD~3 = three commits back</span>
+<span class="c-comment"># Or use a specific hash:</span>
+<span class="c-cmd">git reset</span> <span class="c-flag">--hard</span> <span class="c-arg">abc1234</span></pre>
+                </div>
+
+                <div class="tip danger"><span class="tip-icon">🚨</span><div><strong>Danger</strong><code>--hard</code> permanently destroys your changes. Never use it on commits already pushed to a shared GitHub branch.</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== LOG ======================== -->
+    <div class="section orange" id="log">
+        <div class="section-header">
+            <div class="section-icon">📜</div>
+            <div>
+                <h2>Log & History</h2>
+                <p>Browse your commit history</p>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git log</div>
+                <div class="cmd-info">
+                    <h4>See all past commits</h4>
+                    <p>Shows who committed what and when. Use <code>--oneline</code> for a compact view.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># Full log</span>
+<span class="c-cmd">git log</span>
+
+<span class="c-comment"># Compact one-line view</span>
+<span class="c-cmd">git log</span> <span class="c-flag">--oneline</span>
+
+<span class="c-comment"># Visual branch graph</span>
+<span class="c-cmd">git log</span> <span class="c-flag">--oneline --graph --all</span>
+
+<span class="c-comment"># See what changed in last 3 commits</span>
+<span class="c-cmd">git log</span> <span class="c-flag">-p -3</span>
+
+<span class="c-output">abc1234  (HEAD -> main) Add login page
+def5678  Fix footer layout
+ghi9012  Initial commit</span></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== STASH ======================== -->
+    <div class="section purple" id="stash">
+        <div class="section-header">
+            <div class="section-icon">🗄️</div>
+            <div>
+                <h2>Stash</h2>
+                <p>Temporarily shelve work to switch tasks</p>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git stash</div>
+                <div class="cmd-info">
+                    <h4>Save changes without committing</h4>
+                    <p>Like putting your work in a drawer so you can pull from main and fix a bug, then come back.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># Save current changes to stash</span>
+<span class="c-cmd">git stash</span>
+
+<span class="c-comment"># Save with a label</span>
+<span class="c-cmd">git stash push</span> <span class="c-flag">-m</span> <span class="c-path">"half-done login form"</span>
+
+<span class="c-comment"># List all stashes</span>
+<span class="c-cmd">git stash list</span>
+
+<span class="c-comment"># Bring stash back and remove it from stash list</span>
+<span class="c-cmd">git stash pop</span>
+
+<span class="c-comment"># Bring stash back but keep it in the list</span>
+<span class="c-cmd">git stash apply</span></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== MERGE & REBASE ======================== -->
+    <div class="section green" id="merge">
+        <div class="section-header">
+            <div class="section-icon">🔀</div>
+            <div>
+                <h2>Merge & Rebase</h2>
+                <p>Combine branches together</p>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git merge</div>
+                <div class="cmd-info">
+                    <h4>Combine another branch into yours</h4>
+                    <p>The most common way to bring a feature branch into main. Creates a merge commit.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># 1. Switch to main (target branch)</span>
+<span class="c-cmd">git switch</span> <span class="c-arg">main</span>
+
+<span class="c-comment"># 2. Merge the feature branch in</span>
+<span class="c-cmd">git merge</span> <span class="c-arg">feature-login</span>
+
+<span class="c-comment"># If conflicts appear, fix them, then:</span>
+<span class="c-cmd">git add</span> <span class="c-flag">.</span>
+<span class="c-cmd">git commit</span> <span class="c-flag">-m</span> <span class="c-path">"Merge feature-login"</span></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git rebase</div>
+                <div class="cmd-info">
+                    <h4>Replay commits on top of another branch</h4>
+                    <p>Keeps a linear, cleaner history. Use when you want your feature to look like it was built on the latest main.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># On your feature branch, rebase onto main</span>
+<span class="c-cmd">git switch</span> <span class="c-arg">feature-login</span>
+<span class="c-cmd">git rebase</span> <span class="c-arg">main</span></pre>
+                </div>
+                <div class="tip warn"><span class="tip-icon">⚠️</span><div><strong>Caution</strong>Never rebase branches that others are working on — it rewrites history and can cause problems for teammates.</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== TAGS ======================== -->
+    <div class="section yellow" id="tags">
+        <div class="section-header">
+            <div class="section-icon">🏷️</div>
+            <div>
+                <h2>Tags</h2>
+                <p>Mark important versions like v1.0</p>
+            </div>
+        </div>
+
+        <div class="cmd-card">
+            <div class="cmd-card-header">
+                <div class="cmd-tag">git tag</div>
+                <div class="cmd-info">
+                    <h4>Create version markers</h4>
+                    <p>Tags point to a specific commit permanently — perfect for releases like v1.0.0, v2.1.3.</p>
+                </div>
+            </div>
+            <div class="cmd-body">
+                <div class="code-block">
+                    <div class="code-block-header"><span>bash</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+                    <pre><span class="c-comment"># List all tags</span>
+<span class="c-cmd">git tag</span>
+
+<span class="c-comment"># Create a lightweight tag</span>
+<span class="c-cmd">git tag</span> <span class="c-arg">v1.0.0</span>
+
+<span class="c-comment"># Create an annotated tag (with message)</span>
+<span class="c-cmd">git tag</span> <span class="c-flag">-a</span> <span class="c-arg">v1.0.0</span> <span class="c-flag">-m</span> <span class="c-path">"First stable release"</span>
+
+<span class="c-comment"># Push tag to GitHub</span>
+<span class="c-cmd">git push</span> <span class="c-arg">origin v1.0.0</span>
+
+<span class="c-comment"># Push all tags at once</span>
+<span class="c-cmd">git push</span> <span class="c-flag">--tags</span></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    Git & GitHub Complete Reference &nbsp;·&nbsp; All commands tested on Git 2.x &nbsp;·&nbsp; Use <kbd>git --help</kbd> for built-in docs
+</footer>
+
+<script>
+function copyCode(btn) {
+    const pre = btn.closest('.code-block').querySelector('pre');
+    const text = pre.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'copied!';
+        btn.style.color = '#3fb950';
+        btn.style.borderColor = '#3fb950';
+        setTimeout(() => {
+            btn.textContent = 'copy';
+            btn.style.color = '';
+            btn.style.borderColor = '';
+        }, 1500);
+    });
+}
+</script>
 </body>
 </html>
