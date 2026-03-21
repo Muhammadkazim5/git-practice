@@ -2,7 +2,7 @@
 
 > **Beginner-friendly** Git & GitHub reference — every command explained in simple words with real examples.
 
-🌐 **Live Demo:** [View Cheatsheet](https://username.github.io/git-commands-cheatsheet/)
+🌐 **Live Demo:** [View Cheatsheet](https://muhammadkazim5.github.io/git-commands-cheatsheet/)
 *(Replace `username` with your GitHub username)*
 
 ---
