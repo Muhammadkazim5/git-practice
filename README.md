@@ -194,7 +194,7 @@ All contributions are welcome! 🙌
 
 ## 🗺️ Roadmap / Coming Soon
 
-- [ ] Multi-language support (Urdu, Hindi, Spanish…)
+- [ ] Multi-language support
 - [ ] More quiz questions & difficulty levels
 - [ ] Command search with fuzzy matching
 - [ ] Dark/light auto-detect based on system preference
